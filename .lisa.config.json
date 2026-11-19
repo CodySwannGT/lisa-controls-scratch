@@ -1,0 +1,35 @@
+{
+  "gates": {
+    "code-style": {
+      "pull-request": "required",
+      "criteria": [
+        "SI7"
+      ],
+      "parts": [
+        {
+          "scope": ".",
+          "command": [
+            "node",
+            "-e",
+            "if (require('node:fs').readFileSync(\"src/fixture_none/greeting.py\", 'utf8').includes('PLANTED_VIOLATION')) { console.log('src/fixture_none/greeting.py:1: planted violation'); console.log('Found 1 error'); process.exit(1); } console.log('All checks passed');"
+          ],
+          "evidence": {
+            "locators": [
+              {
+                "path": "Makefile",
+                "line": 1
+              }
+            ]
+          },
+          "proof": {
+            "violation": ".lisa/controls/proofs/lint.violation.patch",
+            "clean": ".lisa/controls/proofs/lint.clean.patch",
+            "failure_shape": [
+              "Found 1 error"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

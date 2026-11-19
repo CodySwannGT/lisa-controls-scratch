@@ -1,0 +1,10 @@
+--- a/src/fixture_none/greeting.py
++++ b/src/fixture_none/greeting.py
+@@ -1,6 +1,7 @@
+ """Greeting helpers."""
+ 
+ 
+ def greet(name: str) -> str:
+     """Return a greeting for a name."""
+     return f"Hello, {name}!"
++PLANTED_VIOLATION = 1

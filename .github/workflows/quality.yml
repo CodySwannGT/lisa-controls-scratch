@@ -1,0 +1,25 @@
+# Test workflow of this public throwaway repository, made to check
+# `lisa controls protect` and `lisa controls attest` (Lisa 6.2.0).
+# It reports one check whose name is the one Lisa derives for the
+# declared style gate, and fails when the planted violation is present.
+name: quality
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  lint:
+    name: "🔍 Quality Checks / 🧹 Lint"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the declared style check
+        run: |
+          if grep -q PLANTED_VIOLATION src/fixture_none/greeting.py; then
+            echo "src/fixture_none/greeting.py:1: planted violation"
+            echo "Found 1 error"
+            exit 1
+          fi
+          echo "All checks passed"
